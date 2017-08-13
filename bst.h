@@ -13,6 +13,7 @@ template <class Comparable>
 class BST {
 	
 	// Type Node for Tree
+	protected :
 	struct Node {
 		Comparable key ;
 		Node* parent ;
@@ -101,7 +102,7 @@ class BST {
 		return find_min(node->right) ;
 	}
 
-	Node* unhook_leaf(Node* target) {
+	virtual Node* unhook_leaf(Node* target) {
 		Node* p = target->parent ; 
 		int lh = - 1, rh = -1 ;
 		if (p->left and p->left->key == target->key) {
@@ -126,12 +127,12 @@ class BST {
 	void in_order(Node* root) const ;
 	void post_order(Node* root) const ;
 	void level_order(Node* root) const ;
-	void update_height_up(Node* node) ; 
+	virtual void update_height_up(Node* node) ; 
 	void swap_nodes(Node*& target, Node*& replacement) ;
 
 	public :
 	
-	BST() { root = nullptr ; height = -1 ; size = 0 ;}
+	BST() { root = nullptr ; height = -1 ; size = 0 ; cout<<"Base BST class constructor\n" ; }
 	int& get_height() { return height ; }
 	int& get_size() { return size ; }
 	
@@ -156,7 +157,7 @@ class BST {
 		level_order(root) ; 
 	}
 	
-	void insert(const Comparable& k) ; 
+	virtual void insert(const Comparable& k) ; 
 	bool find(const Comparable& k) const ;
 
 	Comparable& get_max() const { return find_max(root)->key ; } 
@@ -165,7 +166,7 @@ class BST {
 	Comparable& next(const Comparable& k) const ;
 	pair<Comparable, Comparable> neighbours(const Comparable& k) const ;
 	deque<Comparable> find(const Comparable& a, const Comparable& b) const ;
-	void remove(const Comparable& k) ;
+	virtual void remove(const Comparable& k) ;
 } ;
 
 template<class Comparable>
